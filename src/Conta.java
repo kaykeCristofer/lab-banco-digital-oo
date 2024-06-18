@@ -3,6 +3,7 @@ public abstract class Conta implements IConta {
 	
 	private static final int AGENCIA_PADRAO = 1;
 	private static int SEQUENCIAL = 1;
+	private static double CREDITO = 500.0;
 
 	protected int agencia;
 	protected int numero;
@@ -29,6 +30,16 @@ public abstract class Conta implements IConta {
 	public void transferir(double valor, IConta contaDestino) {
 		this.sacar(valor);
 		contaDestino.depositar(valor);
+	}
+
+	public void emprestimo(double valor) {
+		if (valor < CREDITO) {
+			this.saldo += valor;
+			CREDITO -= valor;
+		}
+		else {
+			System.out.println("O valor requisitado ultrapassa o credito disponivel.");
+		}
 	}
 
 	public int getAgencia() {
